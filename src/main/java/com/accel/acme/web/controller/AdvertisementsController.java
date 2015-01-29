@@ -1,10 +1,28 @@
 package com.accel.acme.web.controller;
 
-import com.accel.acme.web.dto.AdvertisementDto;
-import com.accel.acme.web.exceptions.ItemAlreadyExistException;
-import com.accel.acme.web.exceptions.ItemNotFoundException;
-import com.accel.acme.web.service.AdvertisementService;
-import com.accel.acme.web.service.NewspaperService;
+import static com.accel.acme.web.common.Constants.ACME_ROOT;
+import static com.accel.acme.web.common.Constants.ACME_TITLE;
+import static com.accel.acme.web.common.Constants.ADD_ADVERTISEMENT_URL;
+import static com.accel.acme.web.common.Constants.ADVERTISEMENTS;
+import static com.accel.acme.web.common.Constants.ADVERTISEMENTS_URL;
+import static com.accel.acme.web.common.Constants.CHANGE_ADVERTISEMENT_URL;
+import static com.accel.acme.web.common.Constants.HOME;
+import static com.accel.acme.web.common.Constants.HOME_URL;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_ACTION;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_ADDNEWURL;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_ADVERTISEMENT;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_ERRORS;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_FORMTITLE;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_ITEM;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_ITEMIDENTITY;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_NEWSPAPERLIST;
+import static com.accel.acme.web.common.Constants.MODEL_ATTR_PAGETITLE;
+import static com.accel.acme.web.common.Constants.VIEW_ADVERTISEMENT_FORM;
+import static com.accel.acme.web.common.Constants.VIEW_SUCCESS;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,10 +31,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.accel.acme.web.common.Constants.*;
+import com.accel.acme.web.dto.AdvertisementDto;
+import com.accel.acme.web.exceptions.ItemAlreadyExistException;
+import com.accel.acme.web.exceptions.ItemNotFoundException;
+import com.accel.acme.web.service.AdvertisementService;
+import com.accel.acme.web.service.NewspaperService;
 
 @Controller
 public class AdvertisementsController {
