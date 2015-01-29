@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <advertisements description="Mobile Phone Brand" referenceid="Samsung-001" title="Samsung"/>
+    <clients/>
+    <newspapers code="HND001" language="English" name="The Hindu" ratePerUnit="3.2"/>
+    <newspapers code="NIE012" language="Hindi" name="The New Indian Express" ratePerUnit="3.5"/>
+    <newspapersadvertisements/>
+</dataset>
+
+

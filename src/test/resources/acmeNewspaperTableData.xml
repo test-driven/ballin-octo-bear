@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <advertisements/>
+    <clients/>
+    <newspapers code="HND001" language="English" name="The Hindu" ratePerUnit="3.2"/>
+    <newspapersadvertisements/>
+</dataset>
+
+

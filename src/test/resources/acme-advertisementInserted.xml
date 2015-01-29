@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <advertisements description="Mobile Phone Brand" referenceid="Samsung-001" title="Samsung"/>
+    <advertisements description="Tv Brand" referenceid="Sony-001" title="Sony"/>
+    <clients/>
+    <newspapers/>
+    <newspapersadvertisements/>
+</dataset>
