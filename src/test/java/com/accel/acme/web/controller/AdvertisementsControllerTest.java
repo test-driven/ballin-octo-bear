@@ -1,6 +1,5 @@
 package com.accel.acme.web.controller;
 
-import com.accel.acme.web.common.Constants;
 import com.accel.acme.web.dto.AdvertisementDto;
 import com.accel.acme.web.dto.PublishedAdvtDto;
 import com.accel.acme.web.exceptions.ItemAlreadyExistException;
@@ -25,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.accel.acme.web.common.Constants.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
@@ -60,9 +60,9 @@ public class AdvertisementsControllerTest {
         List<PublishedAdvtDto> expectedList = new ArrayList<PublishedAdvtDto>();
         when(advertisementServiceMock.listPublishedAdvertisements()).thenReturn(expectedList);
 
-        mockMvc.perform(get(Constants.HOME_URL))
+        mockMvc.perform(get(HOME_URL))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.HOME))
+                .andExpect(view().name(HOME))
                 .andExpect(forwardedUrl("/WEB-INF/pages/home.jsp"))
                 .andExpect(model().attributeExists("publishedAdvtList"))
                 .andExpect(model().attribute("publishedAdvtList", hasSize(expectedList.size())));
@@ -75,8 +75,8 @@ public class AdvertisementsControllerTest {
     @Test
     public void ACMENavigationToAddAdvertisement_ShouldRenderAdvetisementFormView() throws Exception {
 
-        mockMvc.perform(get(Constants.ADD_ADVERTISEMENT_URL)).andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+        mockMvc.perform(get(ADD_ADVERTISEMENT_URL)).andExpect(status().isOk())
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
                 .andExpect(model().attribute("advertisement", hasProperty("id", nullValue())))
                 .andExpect(model().attribute("advertisement", hasProperty("title", isEmptyOrNullString())))
@@ -97,16 +97,16 @@ public class AdvertisementsControllerTest {
         when(advertisementServiceMock.addAdvertisement(isA(AdvertisementDto.class))).thenReturn(true);
 
         mockMvc.perform(
-                post(Constants.ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                post(ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", title).param("referenceCode", referenceCode)
                         .param("description", description).param("numberOfUnits", numberOfUnits)
                         .param("clientId", clientId))
-                .andExpect(status().isOk()).andExpect(view().name(Constants.VIEW_SUCCESS))
+                .andExpect(status().isOk()).andExpect(view().name(VIEW_SUCCESS))
                 .andExpect(forwardedUrl("/WEB-INF/pages/success.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ITEM, equalTo("Advertisement")))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ITEMIDENTITY, equalTo(title)))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ACTION, equalTo("added")))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADDNEWURL, equalTo(Constants.ADD_ADVERTISEMENT_URL)));
+                .andExpect(model().attribute(MODEL_ATTR_ITEM, equalTo("Advertisement")))
+                .andExpect(model().attribute(MODEL_ATTR_ITEMIDENTITY, equalTo(title)))
+                .andExpect(model().attribute(MODEL_ATTR_ACTION, equalTo("added")))
+                .andExpect(model().attribute(MODEL_ATTR_ADDNEWURL, equalTo(ADD_ADVERTISEMENT_URL)));
 
     }
 
@@ -115,13 +115,13 @@ public class AdvertisementsControllerTest {
             Exception {
 
         mockMvc.perform(
-                post(Constants.ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                post(ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("description", "Description")
                         .param("referenceCode", "ABCD" + System.currentTimeMillis())
                         .param("numberOfUnits", "5")).andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement Title " +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement Title " +
                         "Required.")));
 
     }
@@ -131,13 +131,13 @@ public class AdvertisementsControllerTest {
             throws Exception {
 
         mockMvc.perform(
-                post(Constants.ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                post(ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", "Advt Title")
                         .param("referenceCode", "ABCD" + System.currentTimeMillis())
                         .param("numberOfUnits", "5")).andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement " +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement " +
                         "description is required.")));
 
     }
@@ -147,13 +147,13 @@ public class AdvertisementsControllerTest {
             () throws Exception {
 
         mockMvc.perform(
-                post(Constants.ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                post(ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", "Advt Title")
                         .param("description", "Description")
                         .param("numberOfUnits", "5")).andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement reference" +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement reference" +
                         " Code Required.")));
 
     }
@@ -163,14 +163,14 @@ public class AdvertisementsControllerTest {
             () throws Exception {
 
         mockMvc.perform(
-                post(Constants.ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                post(ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", "Advt Title")
                         .param("description", "Description")
                         .param("referenceCode", "ABCD" + System.currentTimeMillis()))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("Invalid number of unit" +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("Invalid number of unit" +
                         ".")));
 
     }
@@ -183,15 +183,15 @@ public class AdvertisementsControllerTest {
                 ItemAlreadyExistException("Advertisement Already Exist"));
 
         mockMvc.perform(
-                post(Constants.ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                post(ADD_ADVERTISEMENT_URL).contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", "Advt Title")
                         .param("description", "Description")
                         .param("referenceCode", "ABCD")
                         .param("numberOfUnits", "5"))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement Already " +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("Advertisement Already " +
                         "Exist")));
 
     }
@@ -206,20 +206,20 @@ public class AdvertisementsControllerTest {
 
         when(advertisementServiceMock.getAdvertisementById(advtId)).thenReturn(expectedDto);
 
-        mockMvc.perform(get(Constants.CHANGE_ADVERTISEMENT_URL, advtId))
+        mockMvc.perform(get(CHANGE_ADVERTISEMENT_URL, advtId))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
                 .andExpect(model().attributeExists("advertisement"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADVERTISEMENT, hasProperty("id", is(expectedDto
+                .andExpect(model().attribute(MODEL_ATTR_ADVERTISEMENT, hasProperty("id", is(expectedDto
                         .getId()))))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADVERTISEMENT, hasProperty("title", is(expectedDto
+                .andExpect(model().attribute(MODEL_ATTR_ADVERTISEMENT, hasProperty("title", is(expectedDto
                         .getTitle()))))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADVERTISEMENT, hasProperty("referenceCode", is
+                .andExpect(model().attribute(MODEL_ATTR_ADVERTISEMENT, hasProperty("referenceCode", is
                         (expectedDto.getReferenceCode()))))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADVERTISEMENT, hasProperty("description", is
+                .andExpect(model().attribute(MODEL_ATTR_ADVERTISEMENT, hasProperty("description", is
                         (expectedDto.getDescription()))))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADVERTISEMENT, hasProperty("numberOfUnits", is
+                .andExpect(model().attribute(MODEL_ATTR_ADVERTISEMENT, hasProperty("numberOfUnits", is
                         (expectedDto.getNumberOfUnits()))));
 
     }
@@ -231,7 +231,7 @@ public class AdvertisementsControllerTest {
         when(advertisementServiceMock.updateAdvertisement(isA(AdvertisementDto.class))).thenReturn(true);
 
         mockMvc.perform(
-                post(Constants.CHANGE_ADVERTISEMENT_URL, advtId)
+                post(CHANGE_ADVERTISEMENT_URL, advtId)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", "Adv Title")
                         .param("referenceCode", "ABC")
@@ -241,12 +241,12 @@ public class AdvertisementsControllerTest {
                         .param("contactName", "abc"))
 
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_SUCCESS))
+                .andExpect(view().name(VIEW_SUCCESS))
                 .andExpect(forwardedUrl("/WEB-INF/pages/success.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ITEM, equalTo("Advertisement")))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ITEMIDENTITY, equalTo("Adv Title")))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ACTION, equalTo("updated")))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ADDNEWURL, equalTo(Constants.ADD_ADVERTISEMENT_URL)));
+                .andExpect(model().attribute(MODEL_ATTR_ITEM, equalTo("Advertisement")))
+                .andExpect(model().attribute(MODEL_ATTR_ITEMIDENTITY, equalTo("Adv Title")))
+                .andExpect(model().attribute(MODEL_ATTR_ACTION, equalTo("updated")))
+                .andExpect(model().attribute(MODEL_ATTR_ADDNEWURL, equalTo(ADD_ADVERTISEMENT_URL)));
 
     }
 
@@ -257,9 +257,9 @@ public class AdvertisementsControllerTest {
         when(advertisementServiceMock.getAdvertisementById(nonExistingAdvertisementId)).thenThrow(new
                 ItemNotFoundException(""));
 
-        mockMvc.perform(get(Constants.CHANGE_ADVERTISEMENT_URL, nonExistingAdvertisementId)).andExpect(status()
+        mockMvc.perform(get(CHANGE_ADVERTISEMENT_URL, nonExistingAdvertisementId)).andExpect(status()
                 .isNotFound())
-                .andExpect(view().name(Constants.VIEW_NOT_FOUND))
+                .andExpect(view().name(VIEW_NOT_FOUND))
                 .andExpect(forwardedUrl("/WEB-INF/pages/error/404.jsp"));
 
         verify(advertisementServiceMock, times(1)).getAdvertisementById(nonExistingAdvertisementId);
@@ -275,7 +275,7 @@ public class AdvertisementsControllerTest {
         String referenceCode = "ABC";
         Integer numberOfUnits = -7;
         mockMvc.perform(
-                post(Constants.CHANGE_ADVERTISEMENT_URL, advtId)
+                post(CHANGE_ADVERTISEMENT_URL, advtId)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", title)
                         .param("description", description)
@@ -283,9 +283,9 @@ public class AdvertisementsControllerTest {
                         .param("numberOfUnits", numberOfUnits.toString()))
 
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("Invalid number of unit" +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("Invalid number of unit" +
                         ".")));
     }
 
@@ -304,7 +304,7 @@ public class AdvertisementsControllerTest {
                 ItemAlreadyExistException("The Advertisement is already Exist"));
 
         mockMvc.perform(
-                post(Constants.CHANGE_ADVERTISEMENT_URL, advtId)
+                post(CHANGE_ADVERTISEMENT_URL, advtId)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("title", title)
                         .param("description", description)
@@ -313,9 +313,9 @@ public class AdvertisementsControllerTest {
 
 
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.VIEW_ADVERTISEMENT_FORM))
+                .andExpect(view().name(VIEW_ADVERTISEMENT_FORM))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisementsform.jsp"))
-                .andExpect(model().attribute(Constants.MODEL_ATTR_ERRORS, containsInAnyOrder("The Advertisement is " +
+                .andExpect(model().attribute(MODEL_ATTR_ERRORS, containsInAnyOrder("The Advertisement is " +
                         "already Exist")));
     }
 }

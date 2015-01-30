@@ -42,21 +42,18 @@ import static org.mockito.Mockito.*;
 @WebAppConfiguration
 public class AdvertisementServiceTest {
 
+    @InjectMocks
+    private final AdvertisementService advertisementService = new AdvertisementService();
     Integer advertisementId = 1;
     String advertisementTitle = "LIC";
     String advertisementDescription = "LIC Life Insurence";
     String referenceCode = "LICINDIA";
     Integer numberOfUnits = 3;
-
     String advertisementTitleUpdated = "LIC Jeevan";
     String advertisementCodeUpdated = "LICINDIAJeevan";
     List<Integer> newspaperIdList = Arrays.asList(1, 2, 3);
-
     @Mock
     private AdvertisementDao advertisementDaoMock;
-
-    @InjectMocks
-    private final AdvertisementService advertisementService = new AdvertisementService();
 
     @Before
     public void setUp() throws Exception {

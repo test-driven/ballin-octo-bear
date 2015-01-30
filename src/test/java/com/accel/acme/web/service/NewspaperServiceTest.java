@@ -31,20 +31,17 @@ import static org.mockito.Mockito.*;
 @WebAppConfiguration
 public class NewspaperServiceTest {
 
+    @InjectMocks
+    private final NewspaperService newspaperService = new NewspaperService();
     Integer newspaperId = 1;
     String newspaperName = "The Hindu";
     String newspaperCode = "HND-007";
     String newspaperLanguage = "English";
     Float newspaperRate = 5.5f;
-
     String newspaperNameUpdated = "The Hindu Ex";
     String newspaperCodeUpdated = "HND-001";
-
     @Mock
     private NewspaperDao newspaperDaoMock;
-
-    @InjectMocks
-    private final NewspaperService newspaperService = new NewspaperService();
 
     @Before
     public void setUp() throws Exception {

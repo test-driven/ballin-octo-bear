@@ -127,7 +127,6 @@ public class AdvertisementService {
             }
         }
         return advertisementDto;
-
     }
 
     public boolean removeAdvertisement(Integer advertisementId) throws ItemNotFoundException {
@@ -138,7 +137,6 @@ public class AdvertisementService {
         }
         advertisementDao.removeAdvertisement(advertisement);
         return true;
-
     }
 
     public List<AdvertisementDto> listAdvertisements() {
@@ -184,6 +182,4 @@ public class AdvertisementService {
         }
         return advertDtoList;
     }
-
-
 }

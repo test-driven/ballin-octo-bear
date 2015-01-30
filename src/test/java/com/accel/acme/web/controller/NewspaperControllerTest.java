@@ -58,7 +58,6 @@ public class NewspaperControllerTest {
     @Test
     public void ACMENavigationToNewspapers_ShouldAddNewspapersEntriesToModelAndRenderNewspaperListView() throws
             Exception {
-
         NewspaperDto newspaper1 = new NewspaperDtoBuilder().id(1)
                 .name("Newspaper1")
                 .code("NP1")
@@ -125,7 +124,6 @@ public class NewspaperControllerTest {
     @Test
     public void addingNewNewspaperWithValidDataShouldRenderSuccessPageHavingCreatedNewspaperNameViewHavingLinks()
             throws Exception {
-
         String npname = "NP Name";
         String npcode = "NP Code";
         String nplanguage = "English";
@@ -152,7 +150,6 @@ public class NewspaperControllerTest {
 
     @Test
     public void addingNewNewspaperWithNoNewspapernameShouldRespondWithViewListingErrorMessages() throws Exception {
-
         mockMvc.perform(
                 post(Constants.ADD_NEWSPAPER_URL)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -169,7 +166,6 @@ public class NewspaperControllerTest {
 
     @Test
     public void addingNewNewspaperWithEmptyNewspaperCodeShouldRespondWithViewListingErrorMessages() throws Exception {
-
         mockMvc.perform(
                 post(Constants.ADD_NEWSPAPER_URL)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -187,7 +183,6 @@ public class NewspaperControllerTest {
 
     @Test
     public void addingNewNewspaperWithNoNewspaperLanguageShouldRespondWithViewListingErrorMessages() throws Exception {
-
         mockMvc.perform(
                 post(Constants.ADD_NEWSPAPER_URL)
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -250,7 +245,6 @@ public class NewspaperControllerTest {
     public void
     ACMENavigationToChangeNewsPaper_ShouldRenderChangeNewsPapersFormViewWithFieldsFilledWithSelectedNewspaperData()
             throws Exception {
-
         int newspaperIdtoFetch = 1;
         NewspaperDto expectedDto = new NewspaperDtoBuilder().id(newspaperIdtoFetch)
                 .name("Newspaper" + newspaperIdtoFetch)
@@ -275,7 +269,6 @@ public class NewspaperControllerTest {
                         .getLanguage()))))
                 .andExpect(model().attribute(Constants.MODEL_ATTR_NEWSPAPER, hasProperty("ratePerUnit", is
                         (expectedDto.getRatePerUnit()))));
-
     }
 
     @Test
@@ -303,7 +296,6 @@ public class NewspaperControllerTest {
                 .andExpect(model().attribute(Constants.MODEL_ATTR_ITEMIDENTITY, equalTo(npname)))
                 .andExpect(model().attribute(Constants.MODEL_ATTR_ACTION, equalTo("updated")))
                 .andExpect(model().attribute(Constants.MODEL_ATTR_ADDNEWURL, equalTo(Constants.ADD_NEWSPAPER_URL)));
-
     }
 
     @Test
@@ -351,7 +343,6 @@ public class NewspaperControllerTest {
 
     @Test
     public void changeNewNewspaperWithInvalidPriceShouldRespondWithViewListingErrorMessages() throws Exception {
-
         Integer newspaperId = 1;
         String npname = "NP Name";
         String npcode = "NP Code";

@@ -1,6 +1,5 @@
 package com.accel.acme.web.controller;
 
-import com.accel.acme.web.common.Constants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.accel.acme.web.common.Constants.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -32,9 +32,9 @@ public class AcmeNavigationControllerTest {
     @Test
     public void ACMENavigationToHome_ShouldAddPublishedAdvtEntriesToModelAndRenderHomeView() throws Exception {
 
-        mockMvc.perform(get(Constants.HOME_URL))
+        mockMvc.perform(get(HOME_URL))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.HOME))
+                .andExpect(view().name(HOME))
                 .andExpect(forwardedUrl("/WEB-INF/pages/home.jsp"))
                 .andExpect(model().attributeExists("publishedAdvtList"));
     }
@@ -43,9 +43,9 @@ public class AcmeNavigationControllerTest {
     public void ACMENavigationToAdvertisements_ShouldAddAdvertisementEntriesToModelAndRenderAdvertisementsListView()
             throws Exception {
 
-        mockMvc.perform(get(Constants.ADVERTISEMENTS_URL))
+        mockMvc.perform(get(ADVERTISEMENTS_URL))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.ADVERTISEMENTS))
+                .andExpect(view().name(ADVERTISEMENTS))
                 .andExpect(forwardedUrl("/WEB-INF/pages/advertisements.jsp"))
                 .andExpect(model().attributeExists("advertisementList"));
     }
@@ -53,18 +53,18 @@ public class AcmeNavigationControllerTest {
     @Test
     public void ACMENavigationToContatcus_ShouldRenderContactUsView() throws Exception {
 
-        mockMvc.perform(get(Constants.CONTACTUS_URL))
+        mockMvc.perform(get(CONTACTUS_URL))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.CONTACTUS))
+                .andExpect(view().name(CONTACTUS))
                 .andExpect(forwardedUrl("/WEB-INF/pages/contactus.jsp"));
     }
 
     @Test
     public void ACMENavigationToAboutus_ShouldRenderAboutUsView() throws Exception {
 
-        mockMvc.perform(get(Constants.ABOUTUS_URL))
+        mockMvc.perform(get(ABOUTUS_URL))
                 .andExpect(status().isOk())
-                .andExpect(view().name(Constants.ABOUTUS))
+                .andExpect(view().name(ABOUTUS))
                 .andExpect(forwardedUrl("/WEB-INF/pages/aboutus.jsp"));
     }
 
